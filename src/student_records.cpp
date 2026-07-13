@@ -8,12 +8,11 @@ bool isValidStudentId(string id) {
     // A valid ID should have at least 3 characters.
     // A valid ID should start with an uppercase letter.
     // Hint: You may compare characters directly, such as id[0] >= 'A'.
-    return false;
+  return ((id[0] >= 'A' and id[0]<= 'Z' ) and id.length()>=3);
 }
 
 bool isValidScore(double score) {
-    // TODO: Return true when score is between 0 and 100, inclusive.
-    return false;
+  return (score >= 0 && score <= 100);
 }
 
 void printStudent(const Student& student) {
@@ -39,14 +38,29 @@ double calculateAverageScore(const Student students[], int size) {
     // TODO:
     // If the array is null or size is invalid, return 0.0.
     // Otherwise, return the average score.
-    return 0.0;
+       
+  if (students==nullptr or size < 1){
+      return 0.0; }
+  double sum=0;
+  for (int i=0; i < size; ++i) {
+    sum=sum+ students[i].score;
+  }
+  return sum/double(size);
 }
 
 double findHighestScore(const Student students[], int size) {
     // TODO:
     // If the array is null or size is invalid, return 0.0.
     // Otherwise, return the highest score.
-    return 0.0;
+      if (students == nullptr or size < 1){
+	return 0.0; }
+        double maxVal=students[0].score;
+	for (int i = 0; i < size; ++i) {
+	  if (students[i].score >= maxVal) {
+	maxVal=students[i].score;
+      }
+    }
+    return maxVal;
 }
 
 int findStudentById(const Student students[], int size, string targetId) {
@@ -54,15 +68,29 @@ int findStudentById(const Student students[], int size, string targetId) {
     // Search by comparing students[i].id to targetId.
     // Return the index of the matching student.
     // Return -1 if no student is found.
-    return -1;
+      if (students == nullptr or size < 1){
+      return -1; }
+      for (int i = 0; i < size; ++i) {
+    if (students[i].id == targetId) {
+      return i;     
+    }
+  }
+      return -1;
 }
 
-char determineLetterGrade(double score) {
-    // TODO:
-    // Return 'A' for scores 90 or higher.
-    // Return 'B' for scores 80 or higher.
-    // Return 'C' for scores 70 or higher.
-    // Return 'D' for scores 60 or higher.
-    // Return 'F' otherwise.
-    return 'F';
+char determineLetterGrade(double average) {
+  if (average >= 90) {
+    return 'A';
+  }
+
+  if (average >= 80) {
+    return 'B';
+  }
+  if (average >= 70) {
+    return 'C';
+  }
+  if (average >= 60) {
+    return 'D';
+  }
+  else return 'F';
 }
